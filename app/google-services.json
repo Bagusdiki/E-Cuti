@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "184977268056",
+    "project_id": "e-cuti-c55ab",
+    "storage_bucket": "e-cuti-c55ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184977268056:android:d3014639a3136d7785d92d",
+        "android_client_info": {
+          "package_name": "com.cuti.online.panasonic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184977268056-nirsm2qbr5kne4imq2aeiflvvlqpp7rm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cuti.online.panasonic",
+            "certificate_hash": "38742a8062f9bd2ddb542159202e653ff7160fa4"
+          }
+        },
+        {
+          "client_id": "184977268056-hoqadfjm8qd5jgak7nd82t0v2incejhj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOywk5zFm6p1xdJDmz9B8jAFDdi9kLAo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184977268056-hoqadfjm8qd5jgak7nd82t0v2incejhj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

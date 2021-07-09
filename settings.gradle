@@ -1,0 +1,2 @@
+rootProject.name = "Cuti Online"
+include ':app'

@@ -11,7 +11,9 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.cuti.online.panasonic.R;
+import com.cuti.online.panasonic.interfaces.RegisterView;
 import com.cuti.online.panasonic.model.User;
+import com.cuti.online.panasonic.presenter.RegisterPresenter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -21,17 +23,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements RegisterView {
     Button register, login;
     EditText nama, username, password, confirmPassword;
     RadioGroup rbGroup;
     String status;
-    DatabaseReference dbUser;
+    RegisterPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        initPresenter();
         nama = findViewById(R.id.etNama);
         username = findViewById(R.id.etUsername);
         password = findViewById(R.id.etPassword);
@@ -71,10 +74,14 @@ public class RegisterActivity extends AppCompatActivity {
 
                 } else {
                     if (password.getText().toString().equals(confirmPassword.getText().toString())) {
-                        registerFirebase();
+                        if (status == null) {
+                            Toast.makeText(getApplicationContext(), "Silahkan pilih Status pekerjaan terlebih dahulu", Toast.LENGTH_SHORT).show();
+                        } else {
+                            registerFirebase(nama.getText().toString(), username.getText().toString(), password.getText().toString(), status);
+
+                        }
                     } else {
                         confirmPassword.setError("Password tidak sama");
-
                     }
                 }
             }
@@ -87,43 +94,24 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void registerFirebase() {
-        dbUser = FirebaseDatabase.getInstance().getReference().child("Users" + "/" + username.getText().toString());
-        dbUser.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
-                if (user == null) {
-                    pushToDatabase();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Username sudah terdaftar silahkan login", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+    private void initPresenter() {
+        presenter = new RegisterPresenter(this);
     }
 
-    private void pushToDatabase() {
-        User user = new User();
-        user.setNama(nama.getText().toString());
-        user.setStatus(status);
-        user.setPassword(password.getText().toString());
-        user.setUsername(username.getText().toString());
-        dbUser.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(getApplicationContext(), "Registrasi berhasil\nSilahkan login", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "Registrasi Gagal\nCoba kembali", Toast.LENGTH_SHORT).show();
-            }
-        });
+    private void registerFirebase(String nama, String username, String password, String status) {
+        presenter.register(nama, username, password, status);
     }
+
+    @Override
+    public void onSuccess(Task<Void> task) {
+        Toast.makeText(getApplicationContext(), "Registrasi berhasil\nSilahkan login", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    @Override
+    public void onFailed(String s) {
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+
+    }
+
 }

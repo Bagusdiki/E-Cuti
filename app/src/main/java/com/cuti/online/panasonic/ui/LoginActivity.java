@@ -11,21 +11,25 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cuti.online.panasonic.R;
+import com.cuti.online.panasonic.interfaces.LoginView;
 import com.cuti.online.panasonic.model.User;
+import com.cuti.online.panasonic.presenter.LoginPresenter;
 import com.cuti.online.panasonic.utils.Sharedpreferences;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginView {
     Button login, register;
     EditText username, password;
+    LoginPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        initPresenter();
         login = findViewById(R.id.btLogin);
         register = findViewById(R.id.btRegister);
         username = findViewById(R.id.etUsername);
@@ -38,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (password.getText().toString().isEmpty()) {
                     password.setError("Tidak boleh kosong");
                 } else {
-                    firebaseLogin();
+                    login(username.getText().toString(), password.getText().toString());
                 }
             }
         });
@@ -50,28 +54,25 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void firebaseLogin() {
-        FirebaseDatabase.getInstance().getReference().child("Users/" + username.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
-                if (user != null) {
-                    if (password.getText().toString().equals(user.getPassword())) {
-                        Sharedpreferences.saveBoolean("isLogin", true);
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        finish();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Password salah", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "User tidak terdaftar", Toast.LENGTH_SHORT).show();
-                }
-            }
+    private void initPresenter() {
+        presenter = new LoginPresenter(this);
+    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getApplicationContext(), "Silahkan coba kembali", Toast.LENGTH_SHORT).show();
-            }
-        });
+    private void login(String user, String pwd) {
+        presenter.login(user, pwd);
+    }
+
+    @Override
+    public void onSuccess(User user) {
+        Sharedpreferences.saveBoolean("isLogin", true);
+        Sharedpreferences.saveString("username", user.getUsername());
+        Sharedpreferences.saveString("password", user.getPassword());
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
+    }
+
+    @Override
+    public void onFailed(String password_salah) {
+        Toast.makeText(getApplicationContext(), password_salah, Toast.LENGTH_SHORT).show();
     }
 }

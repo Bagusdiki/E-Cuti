@@ -2,4 +2,8 @@
     <string name="app_name">E-Cuti</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="paragraf1">Syarat dalam mengajukan cuti yang ditetapkan dibawah inin mengatur tata cara dalam melakukan cuti</string>
+    <string name="paragraf2">Selamat datang di Aplikasi E-CUTI!</string>
+    <string name="paragraf3">Terimkasih anda telah mengakses situs atau mengunduh, menggunakan layanan, produk dan atau aplikasi E-CUTI.Aplikasi E-CUTI adalah layanan aplikasi pengajuan cuti elektronik yang diterbitkan oleh Kami. Pada saat anda mengakses, mengunduh, dan menggunakan aplikasi E-CUTI maka Syarat dan Ketentuan ini berlaku terhadap Anda. Dengan melanjutkan mengakses, mengunduh atau menggunakan aplikasi E-CUTI, Anda mengakui dan menyetuji bahwa Anda telah membaca dengan teliti, memahami, menerima, dan menyetujui seluruh Syarat dan Ketentuan ini yang akan berlaku sebagai perjanjian antara Anda dengan Kami. Syarat den Ketentuan ini juga berlaku setiap kali Anda melakukan transaksi menggunakan Aplikasi E-CUTI melalui mitra penyedia platform lain yang menandatangani perjanjian kerjasama dengan Kami dan menggunakan Aplikasi E-CUTI sebagai salah satu metode pengujian cuti (Partner E-CUTI)  </string>
+    <string name="syarat_dalam_melakukan_cuti">Syarat dalam melakukan cuti</string>
 </resources>

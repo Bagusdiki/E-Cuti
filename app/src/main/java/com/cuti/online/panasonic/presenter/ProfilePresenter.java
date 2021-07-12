@@ -1,57 +1,50 @@
 package com.cuti.online.panasonic.presenter;
 
+
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.cuti.online.panasonic.interfaces.RegisterView;
+import com.cuti.online.panasonic.interfaces.ProfileView;
 import com.cuti.online.panasonic.model.User;
-import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.ktx.Firebase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 
-public class RegisterPresenter {
-    RegisterView view;
+public class ProfilePresenter {
+    ProfileView view;
 
-    public RegisterPresenter(RegisterView view) {
+    public ProfilePresenter(ProfileView view) {
         this.view = view;
     }
 
-    public void register(String nama, String noTelpon, String email, String password, Bitmap foto) {
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    public void getProfile(String uid) {
+        FirebaseDatabase.getInstance().getReference().child("Users/" + uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    uploadFoto(foto, task.getResult().getUser().getUid(), nama, noTelpon, email, password);
-                }
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                view.onSuccess(user);
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                view.onFailed(String.valueOf(e));
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                view.onFailed(String.valueOf(error.getMessage()));
             }
         });
     }
 
-    private void uploadFoto(Bitmap bitmap, String uid, String nama, String noTelpon, String email, String password) {
+    public void updateProfile(Bitmap bitmap, String uid, User user) {
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         StorageReference storageReference = firebaseStorage.getReference(uid);
         StorageReference imgReferences = storageReference.child("images/" + uid + ".jpg");
@@ -66,7 +59,8 @@ public class RegisterPresenter {
                     @Override
                     public void onSuccess(Uri uri) {
                         String foto = String.valueOf(uri);
-                        pushToDatabase(uid, nama, noTelpon, email, password, foto);
+                        user.setFoto(foto);
+                        pushToDatabase(uid, user);
                     }
                 });
             }
@@ -78,23 +72,18 @@ public class RegisterPresenter {
         });
     }
 
-    private void pushToDatabase(String uid, String nama, String noTelpon, String email, String password, String foto) {
-        User user = new User();
-        user.setNama(nama);
-        user.setNoTelp(noTelpon);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setFoto(foto);
+    private void pushToDatabase(String uid, User user) {
         FirebaseDatabase.getInstance().getReference().child("Users" + "/" + uid).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                view.onSuccess(task);
+                view.onEditSuccess();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                view.onFailed("Registrasi gagal\nSilahkan coba kembali");
+                view.onEditFailed(String.valueOf(e.getMessage()));
             }
         });
     }
+
 }

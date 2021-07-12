@@ -8,6 +8,7 @@ import android.os.Handler;
 
 import com.cuti.online.panasonic.R;
 import com.cuti.online.panasonic.utils.Sharedpreferences;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashActivity extends AppCompatActivity {
     Handler handler = new Handler();
@@ -19,13 +20,20 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (Sharedpreferences.getBoolean("isLogin")) {
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
                     finish();
                 } else {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     finish();
                 }
+//                if (Sharedpreferences.getBoolean("isLogin")) {
+//                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+//                    finish();
+//                } else {
+//                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+//                    finish();
+//                }
             }
         }, 3000);
     }

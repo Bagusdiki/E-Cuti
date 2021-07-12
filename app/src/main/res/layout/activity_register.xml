@@ -16,20 +16,31 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        android:hint="Username">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etUsername"
-            android:layout_width="match_parent"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:id="@+id/imgRegister"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_user" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabUploadImage"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:backgroundTint="@color/white"
+            android:layout_below="@id/imgRegister"
+            android:layout_marginLeft="-64dp"
+            android:layout_marginTop="-56dp"
+            app:borderWidth="0dp"
+            android:layout_toRightOf="@id/imgRegister"
+            android:contentDescription="Upload Image"
+            android:src="@drawable/ic_camera"
+            app:elevation="2dp" />
+    </RelativeLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -46,28 +57,35 @@
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <RadioGroup
-        android:id="@+id/rbGroup"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:hint="No Telpon">
 
-        <RadioButton
-            android:id="@+id/rbKaryawan"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etNoTelpon"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Karyawan" />
+            android:layout_marginTop="8dp"
+            android:inputType="phone" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <RadioButton
-            android:id="@+id/rbAdmin"
-            android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:hint="Email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Admin" />
-
-    </RadioGroup>
+            android:layout_marginTop="8dp"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -102,24 +120,35 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btRegister"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="24dp"
-        android:backgroundTint="@android:color/holo_green_light"
+        android:backgroundTint="@android:color/holo_green_dark"
         android:text="Register"
         android:textColor="@color/white" />
 
-    <Button
-        android:id="@+id/btLogin"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="24dp"
-        android:text="Login"
-        android:textColor="@color/white" />
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already Registered ?" />
+
+        <TextView
+            android:id="@+id/tvLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="Login here"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+    </LinearLayout>
 </LinearLayout>

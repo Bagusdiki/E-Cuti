@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.cuti.online.panasonic.R;
 
-public class MengajukanCutiActivity extends AppCompatActivity {
+public class NotifikasiActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mengajukan_cuti);
+        setContentView(R.layout.activity_notifikasi);
     }
 }

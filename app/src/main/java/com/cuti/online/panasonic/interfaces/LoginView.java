@@ -1,12 +1,10 @@
 package com.cuti.online.panasonic.interfaces;
 
-import com.cuti.online.panasonic.model.User;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 
-/**
- * Created by Gustu Maulana Firmansyah on 10,July,2021  gustumaulanaf@gmail.com
- **/
 public interface LoginView {
-    public void onSuccess(User user);
+     void onSuccess(Task<AuthResult> task);
 
-    void onFailed(String password_salah);
+    void onFailed(String error);
 }

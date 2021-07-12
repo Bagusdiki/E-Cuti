@@ -1,23 +1,24 @@
 {
   "project_info": {
     "project_number": "184977268056",
+    "firebase_url": "https://e-cuti-c55ab-default-rtdb.firebaseio.com",
     "project_id": "e-cuti-c55ab",
     "storage_bucket": "e-cuti-c55ab.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:184977268056:android:d3014639a3136d7785d92d",
+        "mobilesdk_app_id": "1:184977268056:android:14dd5660d3945ef685d92d",
         "android_client_info": {
-          "package_name": "com.cuti.online.panasonic"
+          "package_name": "com.cuti.online.karyawan.ui"
         }
       },
       "oauth_client": [
         {
-          "client_id": "184977268056-nirsm2qbr5kne4imq2aeiflvvlqpp7rm.apps.googleusercontent.com",
+          "client_id": "184977268056-4tefalmgutol8o3c63ven37msta0k6ql.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.cuti.online.panasonic",
+            "package_name": "com.cuti.online.karyawan.ui",
             "certificate_hash": "38742a8062f9bd2ddb542159202e653ff7160fa4"
           }
         },

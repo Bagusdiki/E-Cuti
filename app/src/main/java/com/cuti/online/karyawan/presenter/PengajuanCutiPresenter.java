@@ -1,11 +1,14 @@
 package com.cuti.online.karyawan.presenter;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.cuti.online.karyawan.interfaces.PengajuanCutiView;
 import com.cuti.online.karyawan.model.Cuti;
 import com.cuti.online.karyawan.model.JenisCuti;
 import com.cuti.online.karyawan.model.User;
+import com.cuti.online.karyawan.utils.Sharedpreferences;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -28,7 +31,8 @@ public class PengajuanCutiPresenter {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<JenisCuti> listJenisCuti = new ArrayList<>();
                 for (DataSnapshot data : snapshot.getChildren()) {
-                    JenisCuti jenisCuti = data.getValue(JenisCuti.class);
+                    JenisCuti jenisCuti = new JenisCuti();
+                    jenisCuti.setNama(data.child("name").getValue(String.class));
                     listJenisCuti.add(jenisCuti);
                 }
                 view.onGetJenisCutiSuccess(listJenisCuti);
@@ -57,16 +61,18 @@ public class PengajuanCutiPresenter {
     }
 
     public void submitCuti(Cuti cuti) {
-        FirebaseDatabase.getInstance().getReference().child("Cuti").push().setValue(cuti).addOnSuccessListener(new OnSuccessListener<Void>() {
+        FirebaseDatabase.getInstance().getReference().child("Cuti/" + Sharedpreferences.getString("uid")).push().setValue(cuti).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 view.onSubmitSuccess();
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                view.onSubmitFailed(e.getMessage());
-            }
-        });
+        }).
+
+                addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        view.onSubmitFailed(e.getMessage());
+                    }
+                });
     }
 }

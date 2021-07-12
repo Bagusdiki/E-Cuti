@@ -21,6 +21,7 @@ import com.cuti.online.karyawan.interfaces.HomeView;
 import com.cuti.online.karyawan.model.User;
 import com.cuti.online.karyawan.presenter.HomePresenter;
 import com.cuti.online.karyawan.ui.NotifikasiActivity;
+import com.cuti.online.karyawan.ui.PengajuanCutiActivity;
 import com.cuti.online.karyawan.ui.SyaratCutiActivity;
 import com.cuti.online.karyawan.utils.Sharedpreferences;
 
@@ -41,7 +42,15 @@ public class HomeUserFragment extends Fragment implements HomeView {
         nama = root.findViewById(R.id.tvNamaKaryawan);
         swipe = root.findViewById(R.id.swipeHome);
         notif = root.findViewById(R.id.imgNotif);
+        pengajuanCuti = root.findViewById(R.id.layoutPengajuanCuti);
         syaratCuti = root.findViewById(R.id.layoutSyaratCuti);
+        pengajuanCuti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(mContext, PengajuanCutiActivity.class));
+
+            }
+        });
         syaratCuti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

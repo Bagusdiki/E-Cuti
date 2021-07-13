@@ -20,6 +20,7 @@ import com.cuti.online.karyawan.R;
 import com.cuti.online.karyawan.interfaces.HomeView;
 import com.cuti.online.karyawan.model.User;
 import com.cuti.online.karyawan.presenter.HomePresenter;
+import com.cuti.online.karyawan.ui.CekCutiActivity;
 import com.cuti.online.karyawan.ui.NotifikasiActivity;
 import com.cuti.online.karyawan.ui.PengajuanCutiActivity;
 import com.cuti.online.karyawan.ui.SyaratCutiActivity;
@@ -44,31 +45,14 @@ public class HomeUserFragment extends Fragment implements HomeView {
         notif = root.findViewById(R.id.imgNotif);
         pengajuanCuti = root.findViewById(R.id.layoutPengajuanCuti);
         syaratCuti = root.findViewById(R.id.layoutSyaratCuti);
-        pengajuanCuti.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(mContext, PengajuanCutiActivity.class));
-
-            }
+        cekPengajuan = root.findViewById(R.id.layoutCekPengajuan);
+        cekPengajuan.setOnClickListener(view -> {
+            startActivity(new Intent(mContext, CekCutiActivity.class));
         });
-        syaratCuti.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(mContext, SyaratCutiActivity.class));
-            }
-        });
-        notif.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(mContext, NotifikasiActivity.class));
-            }
-        });
-        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initPresenter();
-            }
-        });
+        pengajuanCuti.setOnClickListener(view -> startActivity(new Intent(mContext, PengajuanCutiActivity.class)));
+        syaratCuti.setOnClickListener(view -> startActivity(new Intent(mContext, SyaratCutiActivity.class)));
+        notif.setOnClickListener(view -> startActivity(new Intent(mContext, NotifikasiActivity.class)));
+        swipe.setOnRefreshListener(() -> initPresenter());
         initPresenter();
         return root;
     }

@@ -14,8 +14,6 @@ import com.cuti.online.karyawan.R;
 import com.cuti.online.karyawan.interfaces.LoginView;
 import com.cuti.online.karyawan.presenter.LoginPresenter;
 import com.cuti.online.karyawan.utils.Sharedpreferences;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
     Button login;
@@ -28,6 +26,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initPresenter();
+        presenter.checkLogin();
         login = findViewById(R.id.btLogin);
         register = findViewById(R.id.btRegister);
         email = findViewById(R.id.etEmail);
@@ -61,11 +60,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void onSuccess(Task<AuthResult> task) {
-        Sharedpreferences.saveBoolean("isLogin", true);
-        Sharedpreferences.saveString("email", email.getText().toString());
-        Sharedpreferences.saveString("uid", task.getResult().getUser().getUid());
-        Sharedpreferences.saveString("password", password.getText().toString());
+    public void onSuccess(String task) {
+        Sharedpreferences.saveString("uid", task);
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
     }

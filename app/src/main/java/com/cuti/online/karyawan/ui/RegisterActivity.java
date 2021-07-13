@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     FloatingActionButton fabFoto;
     CircleImageView foto;
     Bitmap resultImage;
-
+    int SISA_CUTI = 20;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     }
 
     private void registerFirebase(String nama, String noTelpon, String email, String password) {
-        presenter.register(nama, noTelpon, email, password, resultImage);
+        presenter.register(nama, noTelpon, email, password, resultImage,SISA_CUTI);
     }
 
     @Override

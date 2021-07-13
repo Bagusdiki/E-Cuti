@@ -6,6 +6,7 @@ public class User {
     String password;
     String noTelp;
     String foto;
+    int sisaCuti;
 
     public User() {
     }
@@ -48,5 +49,13 @@ public class User {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public int getSisaCuti() {
+        return sisaCuti;
+    }
+
+    public void setSisaCuti(int sisaCuti) {
+        this.sisaCuti = sisaCuti;
     }
 }

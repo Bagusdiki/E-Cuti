@@ -21,11 +21,15 @@ import com.cuti.online.karyawan.model.User;
 import com.cuti.online.karyawan.presenter.PengajuanCutiPresenter;
 import com.cuti.online.karyawan.utils.Sharedpreferences;
 
+import org.joda.time.Days;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class PengajuanCutiActivity extends AppCompatActivity implements PengajuanCutiView {
     Spinner spCuti;
@@ -34,6 +38,8 @@ public class PengajuanCutiActivity extends AppCompatActivity implements Pengajua
     ArrayList<String> jenisCuti = new ArrayList();
     PengajuanCutiPresenter presenter;
     String cuti;
+    Date dateMulai, dateSelesai;
+    int sisaCuti;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +78,36 @@ public class PengajuanCutiActivity extends AppCompatActivity implements Pengajua
                 } else if (noTelp.getText().toString().isEmpty()) {
                     noTelp.setError("Tidak boleh kosong");
                 } else {
-                    Cuti mCuti = new Cuti();
-                    mCuti.setJenisCuti(cuti);
-                    mCuti.setMulai(tglMulai.getText().toString());
-                    mCuti.setSelesai(tglSelesai.getText().toString());
-                    mCuti.setNama(nama.getText().toString());
-                    mCuti.setNoTelpon(noTelp.getText().toString());
-                    presenter.submitCuti(mCuti);
+                    Date dateToday = Calendar.getInstance().getTime();
+                    long todayDiff = dateToday.getTime() - dateMulai.getTime();
+                    long selisihToday = TimeUnit.DAYS.convert(todayDiff, TimeUnit.MILLISECONDS);
+//                    Toast.makeText(getApplicationContext(),"Selisih"+ selisihToday,Toast.LENGTH_SHORT).show();
+                    if (selisihToday <= 0) {
+                        long diff = dateSelesai.getTime() - dateMulai.getTime();
+                        long selisih = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+                        if (selisih > 0) {
+                            Cuti mCuti = new Cuti();
+                            mCuti.setJenisCuti(cuti);
+                            mCuti.setMulai(tglMulai.getText().toString());
+                            mCuti.setSelesai(tglSelesai.getText().toString());
+                            mCuti.setNama(nama.getText().toString());
+                            mCuti.setNoTelpon(noTelp.getText().toString());
+
+                            //Status
+                            //jika -1 artinya ditolak
+                            //jika 0 artinya sedang diproses
+                            //jika 1 artinya diterima
+                            //default value saat mengajukan cuti adalah 0
+                            mCuti.setStatus("0");
+                            presenter.submitCuti(mCuti);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Tanggal tidak valid", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Tanggal tidak valid", Toast.LENGTH_SHORT).show();
+                    }
+
+
                 }
             }
         });
@@ -103,10 +132,15 @@ public class PengajuanCutiActivity extends AppCompatActivity implements Pengajua
                         Calendar newDate = Calendar.getInstance();
                         newDate.set(year, monthOfYear, dayOfMonth);
                         editText.setText(dateFormat.format(newDate.getTime()));
-
+                        if (editText == tglMulai) {
+                            dateMulai = newDate.getTime();
+                        } else {
+                            dateSelesai = newDate.getTime();
+                        }
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
+
     }
 
     @Override
@@ -141,6 +175,7 @@ public class PengajuanCutiActivity extends AppCompatActivity implements Pengajua
     public void onGetProfileSuccess(User user) {
         nama.setText(user.getNama());
         noTelp.setText(user.getNoTelp());
+        sisaCuti = user.getSisaCuti();
     }
 
     @Override
@@ -150,7 +185,7 @@ public class PengajuanCutiActivity extends AppCompatActivity implements Pengajua
 
     @Override
     public void onSubmitSuccess() {
-        Toast.makeText(getApplicationContext(),"Cuti berhasil diajukan dan dalam proses",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Cuti berhasil diajukan dan dalam proses", Toast.LENGTH_SHORT).show();
     }
 
     @Override

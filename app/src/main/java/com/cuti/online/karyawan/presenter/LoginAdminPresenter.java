@@ -4,9 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.cuti.online.karyawan.interfaces.LoginView;
+import com.cuti.online.karyawan.interfaces.LoginAdminView;
 import com.cuti.online.karyawan.model.Admin;
-import com.cuti.online.karyawan.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -17,10 +16,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class LoginPresenter {
-    LoginView view;
+public class LoginAdminPresenter {
+    LoginAdminView view;
 
-    public LoginPresenter(LoginView view) {
+    public LoginAdminPresenter(LoginAdminView view) {
         this.view = view;
     }
 
@@ -29,10 +28,9 @@ public class LoginPresenter {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    view.onSuccess(task.getResult().getUser().getUid());
-                } else {
-                    view.onFailed("Login Gagal");
-
+                    validasi(task.getResult().getUser().getUid());
+                }else {
+                    view.onFailed("Login gagal");
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -44,20 +42,14 @@ public class LoginPresenter {
         });
     }
 
-    public Boolean checkLogin() {
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            validasi(FirebaseAuth.getInstance().getCurrentUser().getUid());
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public void validasi(String uid) {
-        FirebaseDatabase.getInstance().getReference().child("User/" + uid).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Admin/" + uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                view.onSuccess(uid);
+
+                Admin admin = snapshot.getValue(Admin.class);
+                    view.onSuccess(uid);
+
             }
 
             @Override
@@ -65,5 +57,14 @@ public class LoginPresenter {
                 view.onFailed(error.getMessage());
             }
         });
+    }
+
+    public Boolean checkLogin() {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            validasi(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            return true;
+        } else {
+            return false;
+        }
     }
 }

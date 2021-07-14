@@ -14,6 +14,7 @@ import com.cuti.online.karyawan.R;
 import com.cuti.online.karyawan.interfaces.LoginView;
 import com.cuti.online.karyawan.presenter.LoginPresenter;
 import com.cuti.online.karyawan.utils.Sharedpreferences;
+import com.google.firebase.auth.AuthResult;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
     Button login;
@@ -60,8 +61,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void onSuccess(String task) {
-        Sharedpreferences.saveString("uid", task);
+    public void onSuccess(AuthResult task) {
+        Sharedpreferences.saveString("email", task.getUser().getEmail());
+        Sharedpreferences.saveString("uid", task.getUser().getUid());
+        Sharedpreferences.saveString("password", password.getText().toString());
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
     }
@@ -69,5 +72,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void onFailed(String error) {
         Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onValidasiSuccess(String uid) {
+        Sharedpreferences.saveString("uid", uid);
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
     }
 }

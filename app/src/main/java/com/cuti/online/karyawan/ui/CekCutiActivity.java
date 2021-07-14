@@ -34,15 +34,19 @@ public class CekCutiActivity extends AppCompatActivity implements CekCutiView {
 
     @Override
     public void onSuccess(ArrayList<Cuti> cutiArrayList) {
-        CekCutiAdapter adapter = new CekCutiAdapter(getApplicationContext(),cutiArrayList);
-        rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setHasFixedSize(true);
-        rv.setAdapter(adapter);
+       if (cutiArrayList.size()>0){
+           CekCutiAdapter adapter = new CekCutiAdapter(getApplicationContext(),cutiArrayList);
+           rv.setLayoutManager(new LinearLayoutManager(this));
+           rv.setHasFixedSize(true);
+           rv.setAdapter(adapter);
+       }else {
+           Toast.makeText(getApplicationContext(),"Silahkan ajukan cuti terlebih dahulu",Toast.LENGTH_SHORT).show();
+       }
     }
 
     @Override
     public void onFailed(String message) {
-        Toast.makeText(getApplicationContext(), "Gagal memuat", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 
     }
 

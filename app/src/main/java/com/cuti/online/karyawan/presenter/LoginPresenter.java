@@ -29,7 +29,7 @@ public class LoginPresenter {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    view.onSuccess(task.getResult().getUser().getUid());
+                    view.onSuccess(task.getResult());
                 } else {
                     view.onFailed("Login Gagal");
 
@@ -54,10 +54,15 @@ public class LoginPresenter {
     }
 
     public void validasi(String uid) {
-        FirebaseDatabase.getInstance().getReference().child("User/" + uid).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Users/" + uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                view.onSuccess(uid);
+                if(snapshot.exists()){
+                    view.onValidasiSuccess(uid);
+                }else   {
+                    view.onFailed("Selamat datang");
+
+                }
             }
 
             @Override

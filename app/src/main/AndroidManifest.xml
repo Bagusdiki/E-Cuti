@@ -16,19 +16,39 @@
         android:theme="@style/Theme.CutiOnline"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ui.DataKaryawanActivity"
+        <activity android:name=".ui.UbahKatasandiActivity"
+            android:parentActivityName=".ui.MainActivity"
+            android:label="Kata Sandi"/>
+        <activity
+            android:name=".ui.UpdateEmailActivity"
+            android:label="Edit Profile"
+            android:parentActivityName=".ui.MainActivity" />
+        <activity
+            android:name=".ui.DetailPermohonanCuti"
+            android:label="Permohonan Cuti"
+            android:parentActivityName=".ui.PermohonanCutiActivity" />
+        <activity
+            android:name=".ui.KaryawanDetailActivity"
+            android:label="Detail Data Karyawan"
+            android:parentActivityName=".ui.DataKaryawanActivity" />
+        <activity
+            android:name=".ui.DataKaryawanActivity"
             android:label="Cari Data Karyawan"
-            android:parentActivityName=".ui.AdminMainActivity"/>
+            android:parentActivityName=".ui.AdminMainActivity" />
         <activity
             android:name=".ui.PermohonanCutiActivity"
-            android:label="Permohonan Cuti" />
+            android:label="Permohonan Cuti"
+            android:parentActivityName=".ui.AdminMainActivity" />
         <activity
             android:name=".ui.AdminMainActivity"
             android:theme="@style/Theme.CutiOnline.NoBar" />
         <activity
             android:name=".ui.LoginAdminActivity"
             android:theme="@style/Theme.CutiOnline.NoBar" />
-        <activity android:name=".ui.SisaHariCutiActivity" />
+        <activity
+            android:name=".ui.SisaHariCutiActivity"
+            android:label="Sisa Cuti"
+            android:parentActivityName=".ui.MainActivity" />
         <activity
             android:name=".ui.CekCutiActivity"
             android:label="Cek Pengajuan Cuti"

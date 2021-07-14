@@ -61,7 +61,7 @@ public class PengajuanCutiPresenter {
     }
 
     public void submitCuti(Cuti cuti) {
-        FirebaseDatabase.getInstance().getReference().child("Cuti/" + Sharedpreferences.getString("uid")).push().setValue(cuti).addOnSuccessListener(new OnSuccessListener<Void>() {
+        FirebaseDatabase.getInstance().getReference().child("Cuti/" + Sharedpreferences.getString("uid")).setValue(cuti).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 view.onSubmitSuccess();

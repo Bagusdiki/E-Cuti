@@ -23,6 +23,7 @@ import com.cuti.online.karyawan.presenter.HomePresenter;
 import com.cuti.online.karyawan.ui.CekCutiActivity;
 import com.cuti.online.karyawan.ui.NotifikasiActivity;
 import com.cuti.online.karyawan.ui.PengajuanCutiActivity;
+import com.cuti.online.karyawan.ui.SisaHariCutiActivity;
 import com.cuti.online.karyawan.ui.SyaratCutiActivity;
 import com.cuti.online.karyawan.utils.Sharedpreferences;
 
@@ -45,6 +46,8 @@ public class HomeUserFragment extends Fragment implements HomeView {
         notif = root.findViewById(R.id.imgNotif);
         pengajuanCuti = root.findViewById(R.id.layoutPengajuanCuti);
         syaratCuti = root.findViewById(R.id.layoutSyaratCuti);
+        cekSisaCuti = root.findViewById(R.id.layoutCekSisaCuti);
+        cekSisaCuti.setOnClickListener(view -> startActivity(new Intent(mContext, SisaHariCutiActivity.class)));
         cekPengajuan = root.findViewById(R.id.layoutCekPengajuan);
         cekPengajuan.setOnClickListener(view -> {
             startActivity(new Intent(mContext, CekCutiActivity.class));

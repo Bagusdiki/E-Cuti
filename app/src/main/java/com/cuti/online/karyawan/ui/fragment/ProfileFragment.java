@@ -28,6 +28,8 @@ import com.cuti.online.karyawan.R;
 import com.cuti.online.karyawan.interfaces.ProfileView;
 import com.cuti.online.karyawan.model.User;
 import com.cuti.online.karyawan.presenter.ProfilePresenter;
+import com.cuti.online.karyawan.ui.UbahKatasandiActivity;
+import com.cuti.online.karyawan.ui.UpdateEmailActivity;
 import com.cuti.online.karyawan.utils.ImageRotator;
 import com.cuti.online.karyawan.utils.Sharedpreferences;
 
@@ -44,7 +46,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
     ProfilePresenter presenter;
     CircleImageView imgProfile;
     EditText nama, noTelp;
-    TextView email, ubah, updateFoto;
+    TextView email, ubah, updateFoto,pwd;
     private Context mContext;
     Button simpan, batal;
     Bitmap resultImage;
@@ -59,7 +61,13 @@ public class ProfileFragment extends Fragment implements ProfileView {
         nama = root.findViewById(R.id.etNamaProfile);
         noTelp = root.findViewById(R.id.etNoTelpProfile);
         email = root.findViewById(R.id.tvEmailProfile);
+        pwd = root.findViewById(R.id.tvUbahPasswordProfile);
+        pwd.setOnClickListener(view -> {
+            startActivity(new Intent(mContext, UbahKatasandiActivity.class));
+
+        });
         ubah = root.findViewById(R.id.tvUbah);
+        ubah.setOnClickListener(view -> startActivity(new Intent(mContext, UpdateEmailActivity.class)));
         simpan = root.findViewById(R.id.btSimpanProfile);
         updateFoto = root.findViewById(R.id.tvPerbaruiFotoProfile);
         batal = root.findViewById(R.id.btCancelProfile);

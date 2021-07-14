@@ -175,7 +175,6 @@ public class PengajuanCutiActivity extends AppCompatActivity implements Pengajua
     public void onGetProfileSuccess(User user) {
         nama.setText(user.getNama());
         noTelp.setText(user.getNoTelp());
-        sisaCuti = user.getSisaCuti();
     }
 
     @Override
@@ -186,6 +185,7 @@ public class PengajuanCutiActivity extends AppCompatActivity implements Pengajua
     @Override
     public void onSubmitSuccess() {
         Toast.makeText(getApplicationContext(), "Cuti berhasil diajukan dan dalam proses", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override

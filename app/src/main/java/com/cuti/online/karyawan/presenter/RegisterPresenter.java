@@ -27,12 +27,12 @@ public class RegisterPresenter {
         this.view = view;
     }
 
-    public void register(String nama, String noTelpon, String email, String password, Bitmap foto, int SISA_CUTI) {
+    public void register(String nama, String noTelpon, String email, String password, Bitmap foto) {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    uploadFoto(foto, task.getResult().getUser().getUid(), nama, noTelpon, email, password,SISA_CUTI);
+                    uploadFoto(foto, task.getResult().getUser().getUid(), nama, noTelpon, email, password);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -44,7 +44,7 @@ public class RegisterPresenter {
         });
     }
 
-    private void uploadFoto(Bitmap bitmap, String uid, String nama, String noTelpon, String email, String password, int SISA_CUTI) {
+    private void uploadFoto(Bitmap bitmap, String uid, String nama, String noTelpon, String email, String password) {
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         StorageReference storageReference = firebaseStorage.getReference(uid);
         StorageReference imgReferences = storageReference.child("images/" + uid + ".jpg");
@@ -59,7 +59,7 @@ public class RegisterPresenter {
                     @Override
                     public void onSuccess(Uri uri) {
                         String foto = String.valueOf(uri);
-                        pushToDatabase(uid, nama, noTelpon, email, password, foto,SISA_CUTI);
+                        pushToDatabase(uid, nama, noTelpon, email, password, foto);
                     }
                 });
             }
@@ -71,14 +71,13 @@ public class RegisterPresenter {
         });
     }
 
-    private void pushToDatabase(String uid, String nama, String noTelpon, String email, String password, String foto, int SISA_CUTI) {
+    private void pushToDatabase(String uid, String nama, String noTelpon, String email, String password, String foto) {
         User user = new User();
         user.setNama(nama);
         user.setNoTelp(noTelpon);
         user.setPassword(password);
         user.setEmail(email);
         user.setFoto(foto);
-        user.setSisaCuti(SISA_CUTI);
         FirebaseDatabase.getInstance().getReference().child("Users" + "/" + uid).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

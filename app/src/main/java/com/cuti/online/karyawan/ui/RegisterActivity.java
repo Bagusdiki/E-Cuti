@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     FloatingActionButton fabFoto;
     CircleImageView foto;
     Bitmap resultImage;
-    int SISA_CUTI = 20;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,11 +71,13 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                 } else if (noTelpon.getText().toString().isEmpty()) {
                     noTelpon.setError("Tidak boleh kosong");
                 } else {
-                    if (password.getText().toString().equals(confirmPassword.getText().toString())) {
-
-                        registerFirebase(nama.getText().toString(), noTelpon.getText().toString(), email.getText().toString(), password.getText().toString());
-                    } else {
+                    if (!password.getText().toString().equals(confirmPassword.getText().toString())) {
                         confirmPassword.setError("Password tidak sama");
+                    } else if (confirmPassword.getText().toString().length() < 8) {
+                        confirmPassword.setError("Minimum 8 huruf");
+                        password.setError("Minimum 8 huruf");
+                    } else {
+                        registerFirebase(nama.getText().toString(), noTelpon.getText().toString(), email.getText().toString(), password.getText().toString());
                     }
                 }
             }
@@ -100,7 +102,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     }
 
     private void registerFirebase(String nama, String noTelpon, String email, String password) {
-        presenter.register(nama, noTelpon, email, password, resultImage,SISA_CUTI);
+        presenter.register(nama, noTelpon, email, password, resultImage);
     }
 
     @Override

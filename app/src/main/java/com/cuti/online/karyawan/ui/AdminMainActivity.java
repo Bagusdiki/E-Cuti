@@ -23,7 +23,8 @@ public class AdminMainActivity extends AppCompatActivity implements AdminMainVie
     BottomNavigationView nav;
     AdminMainPresenter presenter;
     TextView nama;
-    LinearLayout layoutDataKaryawan;
+    LinearLayout layoutDataKaryawan, layoutPermohonanCuti;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,11 +32,18 @@ public class AdminMainActivity extends AppCompatActivity implements AdminMainVie
         initPresenter();
         nama = findViewById(R.id.tvNamaAdmin);
         nav = findViewById(R.id.navAdminMain);
+        layoutPermohonanCuti = findViewById(R.id.layoutPermohonanCuti);
+        layoutPermohonanCuti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AdminMainActivity.this, PermohonanCutiActivity.class));
+            }
+        });
         layoutDataKaryawan = findViewById(R.id.layoutDataKaryawan);
         layoutDataKaryawan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AdminMainActivity.this,DataKaryawanActivity.class));
+                startActivity(new Intent(AdminMainActivity.this, DataKaryawanActivity.class));
             }
         });
         nav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -48,6 +56,7 @@ public class AdminMainActivity extends AppCompatActivity implements AdminMainVie
                 return false;
             }
         });
+
     }
 
     private void initPresenter() {

@@ -57,6 +57,10 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     //menghitung hari
     implementation 'joda-time:joda-time:2.10.10'
+    //pdf
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+
+
 
 
 }

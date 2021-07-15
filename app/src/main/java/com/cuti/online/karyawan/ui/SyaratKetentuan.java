@@ -13,13 +13,13 @@ import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 
-public class SyaratCutiActivity extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener, OnPageErrorListener {
-    PDFView pdfView;
+public class SyaratKetentuan extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener, OnPageErrorListener {
+  PDFView pdfView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_syarat_cuti);
-        pdfView = findViewById(R.id.pdfSyarat);
+        setContentView(R.layout.activity_syarat_ketentuan);
+        pdfView = findViewById(R.id.syaratKetentuanPDF);
         pdfView.fromAsset("syaratketentuan.pdf")
                 .defaultPage(0)
                 .onPageChange(this)
@@ -53,5 +53,6 @@ public class SyaratCutiActivity extends AppCompatActivity implements OnPageChang
         }
         return true;
     }
+
 
 }

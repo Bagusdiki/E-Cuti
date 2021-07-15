@@ -16,9 +16,21 @@
         android:theme="@style/Theme.CutiOnline"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ui.UbahKatasandiActivity"
+        <activity android:name=".ui.KebijakanPrivasiActivity"
+            android:label="Kebijakan Privasi"
             android:parentActivityName=".ui.MainActivity"
-            android:label="Kata Sandi"/>
+            />
+        <activity android:name=".ui.SyaratKetentuan"
+            android:label="Syarat dan Ketentuan"
+            android:parentActivityName=".ui.MainActivity"/>
+        <activity
+            android:name=".ui.EditProfileActivity"
+            android:label="Edit Profile"
+            android:parentActivityName=".ui.MainActivity" />
+        <activity
+            android:name=".ui.UbahKatasandiActivity"
+            android:label="Kata Sandi"
+            android:parentActivityName=".ui.MainActivity" />
         <activity
             android:name=".ui.UpdateEmailActivity"
             android:label="Edit Profile"

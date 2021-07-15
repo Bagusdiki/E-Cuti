@@ -46,10 +46,15 @@ public class LoginAdminPresenter {
         FirebaseDatabase.getInstance().getReference().child("Admin/" + uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                Admin admin = snapshot.getValue(Admin.class);
+                if (snapshot.exists()){
+                    Admin admin = snapshot.getValue(Admin.class);
                     view.onSuccess(uid);
 
+                }
+                else{
+                    view.onFailed("Selamat Datang");
+
+                }
             }
 
             @Override

@@ -47,14 +47,28 @@ public class SisaCutiAdapter extends RecyclerView.Adapter<SisaCutiAdapter.ViewHo
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         try {
-            Date objDate = dateFormat.parse(list.get(position).getSelesai());
-            long todayDiff = objDate.getTime()-dateToday.getTime();
-            long selisihToday = TimeUnit.DAYS.convert(todayDiff, TimeUnit.MILLISECONDS);
-            if (selisihToday+1>0){
-                holder.sisa.setText(String.valueOf(selisihToday+1)+ "hari");
+            Date objDateMulai = dateFormat.parse(list.get(position).getSelesai());
+            long todayDiff1 = objDateMulai.getTime() - dateToday.getTime();
+            long selisihToday1 = TimeUnit.DAYS.convert(todayDiff1, TimeUnit.MILLISECONDS);
+
+            if (selisihToday1>0) {
+                Date objDate = dateFormat.parse(list.get(position).getMulai());
+                long todayDiff = objDate.getTime() - dateToday.getTime();
+                long selisihToday = TimeUnit.DAYS.convert(todayDiff, TimeUnit.MILLISECONDS)+1;
+                holder.sisa.setText("Cuti akan dimulai "+selisihToday+ "hari lagi");
+            }else if (selisihToday1==0){
+                Date objDate = dateFormat.parse(list.get(position).getSelesai());
+                long todayDiff = objDate.getTime() - dateToday.getTime();
+                long selisihToday = TimeUnit.DAYS.convert(todayDiff, TimeUnit.MILLISECONDS);
+                if (selisihToday + 1 > 0) {
+                    holder.sisa.setText(String.valueOf(selisihToday + 1) + "hari");
+                } else {
+                    holder.sisa.setText("Selesai");
+                }
             }else {
                 holder.sisa.setText("Selesai");
             }
+
         } catch (ParseException e) {
             e.printStackTrace();
         }

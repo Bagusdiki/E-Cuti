@@ -1,10 +1,12 @@
 package com.cuti.online.karyawan.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.cuti.online.karyawan.R;
@@ -49,5 +51,13 @@ public class PermohonanCutiActivity extends AppCompatActivity implements Permoho
     protected void onResume() {
         super.onResume();
         initPresenter();
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return true;
     }
 }

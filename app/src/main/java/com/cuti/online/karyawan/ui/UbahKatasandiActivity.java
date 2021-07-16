@@ -1,9 +1,11 @@
 package com.cuti.online.karyawan.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,5 +75,13 @@ public class UbahKatasandiActivity extends AppCompatActivity implements UbahKata
     public void onFailed(String message) {
         Toast.makeText(getApplicationContext(), "Gagal mengubah kata sandi\nSilahkan coba kembali", Toast.LENGTH_SHORT).show();
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return true;
     }
 }

@@ -1,10 +1,12 @@
 package com.cuti.online.karyawan.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.cuti.online.karyawan.R;
@@ -48,6 +50,14 @@ public class CekCutiActivity extends AppCompatActivity implements CekCutiView {
     public void onFailed(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return true;
     }
 
 }

@@ -1,8 +1,10 @@
 package com.cuti.online.karyawan.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -26,5 +28,14 @@ public class KaryawanDetailActivity extends AppCompatActivity {
         nama.setText(getIntent().getStringExtra("nama"));
         email.setText(getIntent().getStringExtra("email"));
         noHp.setText(getIntent().getStringExtra("noTelp"));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return true;
     }
 }

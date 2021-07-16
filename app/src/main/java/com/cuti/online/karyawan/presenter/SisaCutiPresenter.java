@@ -19,7 +19,7 @@ public class SisaCutiPresenter {
     }
 
     public void getCekCuti(String uid) {
-        FirebaseDatabase.getInstance().getReference().child("Cuti/" + uid).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Cuti/" + uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {

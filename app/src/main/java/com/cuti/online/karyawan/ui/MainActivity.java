@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                         return openFragment(new ProfileFragment());
                     case R.id.menu_keluar:
                         FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        startActivity(new Intent(MainActivity.this, SplashActivity.class));
                         finish();
                 }
                 return false;

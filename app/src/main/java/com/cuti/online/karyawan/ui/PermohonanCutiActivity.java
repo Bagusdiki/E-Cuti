@@ -2,6 +2,7 @@ package com.cuti.online.karyawan.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 public class PermohonanCutiActivity extends AppCompatActivity implements PermohonanCutiView {
     PermohonanCutiPresenter presenter;
     RecyclerView rv;
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,17 +29,32 @@ public class PermohonanCutiActivity extends AppCompatActivity implements Permoho
         setContentView(R.layout.activity_permohonan_cuti);
         initPresenter();
         rv = findViewById(R.id.rvPermohonanCutiAdmin);
+        searchView = findViewById(R.id.searchPermohonan);
+        searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                presenter.getPermohonan(newText);
+                return true;
+            }
+        });
     }
 
     private void initPresenter() {
         presenter = new PermohonanCutiPresenter(this);
-        presenter.getPermohonan();
+        presenter.getPermohonan("");
     }
 
     @Override
     public void onSuccess(ArrayList<Cuti> cutiArrayList, ArrayList<String> key) {
         PermohonanCutiAdapter adapter = new PermohonanCutiAdapter(this, cutiArrayList, key);
-        rv.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setReverseLayout(true);
+        rv.setLayoutManager(layoutManager);
         rv.setHasFixedSize(true);
         rv.setAdapter(adapter);
     }
@@ -52,6 +69,7 @@ public class PermohonanCutiActivity extends AppCompatActivity implements Permoho
         super.onResume();
         initPresenter();
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

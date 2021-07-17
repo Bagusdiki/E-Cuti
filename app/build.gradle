@@ -59,7 +59,8 @@ dependencies {
     implementation 'joda-time:joda-time:2.10.10'
     //pdf
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
-
+    //cetak
+    implementation 'com.itextpdf:itextpdf:5.0.6'
 
 
 

@@ -18,8 +18,8 @@ public class PermohonanCutiPresenter {
     public PermohonanCutiPresenter(PermohonanCutiView view) {
         this.view = view;
     }
-    public void getPermohonan(){
-        Query query = FirebaseDatabase.getInstance().getReference().child("Cuti");
+    public void getPermohonan(String nama){
+        Query query = FirebaseDatabase.getInstance().getReference().child("Cuti").orderByChild("nama").startAt(nama).endAt(nama+"\uf8ff");;
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

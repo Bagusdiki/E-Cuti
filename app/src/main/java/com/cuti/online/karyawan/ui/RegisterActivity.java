@@ -73,9 +73,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                 } else {
                     if (!password.getText().toString().equals(confirmPassword.getText().toString())) {
                         confirmPassword.setError("Password tidak sama");
-                    } else if (confirmPassword.getText().toString().length() < 8) {
-                        confirmPassword.setError("Minimum 8 huruf");
-                        password.setError("Minimum 8 huruf");
+                    } else if (confirmPassword.getText().toString().length() < 6) {
+                        confirmPassword.setError("Minimum 6 karakter");
+                        password.setError("Minimum 6 karakter");
                     } else {
                         registerFirebase(nama.getText().toString(), noTelpon.getText().toString(), email.getText().toString(), password.getText().toString());
                     }

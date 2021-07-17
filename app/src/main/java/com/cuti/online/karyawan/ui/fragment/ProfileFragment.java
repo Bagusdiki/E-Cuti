@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ import com.cuti.online.karyawan.model.User;
 import com.cuti.online.karyawan.presenter.ProfilePresenter;
 import com.cuti.online.karyawan.ui.EditProfileActivity;
 import com.cuti.online.karyawan.ui.KebijakanPrivasiActivity;
+import com.cuti.online.karyawan.ui.NotifikasiActivity;
 import com.cuti.online.karyawan.ui.SyaratKetentuan;
 import com.cuti.online.karyawan.ui.UbahKatasandiActivity;
 import com.cuti.online.karyawan.ui.UpdateEmailActivity;
@@ -49,6 +51,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
     TextView nama, noTelp;
     LinearLayout pwd, profile, syarat, kebijakan;
     CircleImageView img;
+    ImageView notif;
     private Context mContext;
 
     @Override
@@ -68,6 +71,10 @@ public class ProfileFragment extends Fragment implements ProfileView {
         pwd.setOnClickListener(view -> {
             startActivity(new Intent(mContext, UbahKatasandiActivity.class));
 
+        });
+        notif = root.findViewById(R.id.imgNotifProfile);
+        notif.setOnClickListener(view -> {
+            startActivity(new Intent(mContext, NotifikasiActivity.class));
         });
         syarat = root.findViewById(R.id.layoutSyaratKetentuan);
         syarat.setOnClickListener(view -> startActivity(new Intent(mContext, SyaratKetentuan.class)));

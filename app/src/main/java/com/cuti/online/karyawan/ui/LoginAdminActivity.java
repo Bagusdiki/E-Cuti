@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cuti.online.karyawan.R;
@@ -18,6 +19,7 @@ public class LoginAdminActivity extends AppCompatActivity implements LoginAdminV
     LoginAdminPresenter presenter;
     EditText email, password;
     Button signIn;
+    TextView forgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,13 @@ public class LoginAdminActivity extends AppCompatActivity implements LoginAdminV
         email = findViewById(R.id.etEmailAdmin);
         password = findViewById(R.id.etPassworAdmin);
         signIn = findViewById(R.id.btLoginAdmin);
+        forgotPassword = findViewById(R.id.tvForgotPasswordAdmin);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginAdminActivity.this, ForgotPasswordActivity.class));
+            }
+        });
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
